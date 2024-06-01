@@ -13,41 +13,69 @@
 
         <div class="pokemon-boxes">
 
-            <div class="pokemon-box" >
+            <!--
+                                              <div class="pokemon-box" >
                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="">
               <h3>Ditto</h3>
             </div>
-
-            <div class="pokemon-box" >
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="">
-                <h3>Ditto</h3>
-            </div>
-
-            <div class="pokemon-box" >
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="">
-                <h3>Ditto</h3>
-            </div>
+            -->
 
 
-            <div class="pokemon-box" >
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="">
-               <h3>Ditto</h3>
-             </div>
- 
-             <div class="pokemon-box" >
-                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="">
-                 <h3>Ditto</h3>
-             </div>
- 
-             <div class="pokemon-box" >
-                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="">
-                 <h3>Ditto</h3>
-             </div>
         </div><!--pokemon-boxes-->
     </div>
 
 
     <script>
+
+
+        function pegaPokemons(quantidade){
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+            .then(Response => Response.json())
+            .then(allpokemon => {
+
+                let pokemons = [];
+
+                allpokemon.results.map((val) => {
+      
+                    fetch(val.url)
+                    .then(Response => Response.json())
+                    .then(pokemonSingle => {
+                            pokemons.push({nome:val.name,imagem:pokemonSingle.sprites.front_default});
+
+
+
+                            if(pokemons.length == quantidade){
+
+
+                            let pokemonsBoxes = document.querySelector('.pokemon-boxes');
+                            pokemonsBoxes.innerHTML = "";
+
+
+                            pokemons.map(function(val){
+                                pokemonsBoxes.innerHTML+= `
+                                <div class="pokemon-box" >
+                                    <img src="${val.imagem}" alt="">
+                                    <h3>${val.nome}</h3>
+                               </div>`  ;
+                             });
+
+
+
+                            }
+
+                        })
+
+                })
+
+                pokemons.map((val)=>{
+                    console.log(val.nome)
+                })
+
+            })
+        }
+
+
+        pegaPokemons(30)
         
     </script>
 </body>

@@ -24,12 +24,15 @@ body{
 .pokemon-boxes{
     margin: 20px 0;
     display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    flex-direction: column;
 }
 
 .pokemon-box{
     border-radius: 10px;
     width: 30%;
-    margin: 0 2%;
+    margin: 1% 2%;
     background-color: rgb(230, 230, 230);
 }
 
